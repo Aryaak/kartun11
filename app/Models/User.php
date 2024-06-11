@@ -15,4 +15,9 @@ class User extends Authenticatable
 
     protected $primaryKey = 'uuid',
         $guarded = [];
+
+    public function role()
+    {
+        return $this->belongsTo(Role::class);
+    }
 }

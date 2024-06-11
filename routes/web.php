@@ -1,5 +1,11 @@
 <?php
 
+use App\Http\Controllers\CashflowController;
+use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\LoginController;
+use App\Http\Controllers\ProjectController;
+use App\Http\Controllers\UserController;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,6 +19,16 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('pages.index');
+Auth::routes();
+
+
+Route::middleware('auth')->group(function () {
+    Route::get('dashboard', [DashboardController::class, 'index'])
+        ->name('dashboard');
+
+    Route::resource('user', UserController::class);
+
+    Route::resource('project', ProjectController::class);
+
+    Route::resource('cashflow', CashflowController::class);
 });
